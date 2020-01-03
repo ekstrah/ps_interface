@@ -60,3 +60,16 @@ def assign_status_dict(status): #ExtensionResponse(status=ExtensionStatus(code=0
 
 
 
+if __name__ == "__main__":
+    instance = osquery.SpawnInstance()
+    instance.open()
+    a = str(instance.client.query(" SELECT DISTINCT h.sha256, p.name, u.username\
+                                    FROM processes AS p\
+                                    INNER JOIN hash AS h ON h.path = p.path\
+                                    INNER JOIN users AS u ON u.uid = p.uid\
+                                    ORDER BY start_time DESC"))
+    aSplited = a.rsplit("response=")
+    #print(aSplited[0][:-2]) #This is the statusContext
+    data = aSplited[1][:-1] #This is the conetent 
+    data = data.replace("'", '"')
+    print(data)

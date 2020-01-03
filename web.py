@@ -11,15 +11,22 @@ table_attributes = {"style" : "width:100%"}
 
 app = Flask(__name__)
 
+
+
 @app.route("/")
-def hello():
+def index():
+    return render_template("index.html", title="OS Index")
+    # return render_template("index.html")
+
+@app.route("/general")
+def general():
     data = process_by_username()
     html_parser = json2html.convert(json=data)
     html_parser = html_parser.replace('<table border="1">', "<table class=container>")
     with open("./templates/data_main.html", "w") as f:
         f.write(html_parser)
 
-    return render_template("index.html", title="OS Interface")
+    return render_template("general.html", title="OS Interface")
 
 @app.route("/cpu_intensive")
 def cpu_intensive():
