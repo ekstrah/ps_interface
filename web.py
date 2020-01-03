@@ -14,8 +14,9 @@ app = Flask(__name__)
 @app.route("/")
 def hello():
     data = send_and_receive_all()
+    html_parser = json2html.convert(json=data)
+    html_parser = html_parser.replace('<table border="1">', "<table class=container>")
+    with open("./templates/data.html", "w") as f:
+        f.write(html_parser)
 
-    with open("./templates/index.html", "w") as f:
-        f.write(json2html.convert(json = data))
-
-    return render_template("index.html")
+    return render_template("index.html", title="OS Interface")

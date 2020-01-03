@@ -26,19 +26,6 @@ def assign_status_dict(status): #ExtensionResponse(status=ExtensionStatus(code=0
     #converting to dictionary
     #Need to work on this later but for now i pause this it here
 
-if __name__ == "__main__":
-    instance = osquery.SpawnInstance()
-    instance.open()
-    a = str(instance.client.query("SELECT pid, username, name FROM processes p JOIN users u ON u.uid = p.uid ORDER BY start_time"))
-    aSplited = a.rsplit("response=")
-    #print(aSplited[0][:-2]) #This is the statusContext
-    print(aSplited[1][:-1]) #This is the conetent 
-    data = aSplited[1][:-1]
-    data = data.replace("'", '"')
-    with open("test.txt", "w") as f:
-        f.write(data)
 
-    with open("test.html", "w") as f:
-        f.write(json2html.convert(json = data))
 
 
