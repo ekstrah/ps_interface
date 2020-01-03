@@ -33,6 +33,18 @@ def process_by_cpu_from_bootup():
     print(data)
     return data
 
+def process_by_memory():
+    #SELECT pid, name, ROUND((total_size * '10e-7'), 2) AS used FROM processes ORDER BY total_size DESC LIMIT 5;
+    instance = osquery.SpawnInstance()
+    instance.open()
+    a = str(instance.client.query("SELECT pid, name, ROUND((total_size * '10e-7'), 2)\
+         AS used FROM processes ORDER BY total_size DESC;"))
+    aSplited = a.rsplit("response=")
+    #print(aSplited[0][:-2]) #This is the statusContext
+    data = aSplited[1][:-1] #This is the conetent 
+    data = data.replace("'", '"')
+    print(data)
+    return data
 
 def assign_status_dict(status): #ExtensionResponse(status=ExtensionStatus(code=0, message='OK', uuid=0),
     m = re.search('ExtensionStatus(.*)', status)
