@@ -43,7 +43,7 @@ def process_by_memory():
     #print(aSplited[0][:-2]) #This is the statusContext
     data = aSplited[1][:-1] #This is the conetent 
     data = data.replace("'", '"')
-    print(data)
+    # print(data)
     return data
 
 def assign_status_dict(status): #ExtensionResponse(status=ExtensionStatus(code=0, message='OK', uuid=0),
